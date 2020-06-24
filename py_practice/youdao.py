@@ -56,13 +56,15 @@ class Fanyi(object):
     def send_request(self):
         res = requests.post(url=self.url, data=self.data, headers=self.headers)
         res.encoding = 'utf-8'
-        list =  json.loads(res.text)
+        list = json.loads(res.text)
         self.get_result(list)
 
     def get_result(self, list):
-        result = list['translateResult'][0][0]['tgt']
-        print(result)
-
+        try:
+            result = list['translateResult'][0][0]['tgt']
+            print(result)
+        except Exception as e:
+            print("翻译不出来了，你要上天啊")
     def main(self):
         self.send_request()
 
